@@ -37,11 +37,24 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now :)
 --]]
+
+
+
+--[[=================================================================
+=========================== VIM MAP LEADER ==========================
+=================================================================]]--
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+
+
+--[[=================================================================
+=============== PACKAGE MANAGER / PLUGIN INSTALLATION ===============
+=================================================================]]--
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -282,8 +295,10 @@ require('lazy').setup({
 
 
 
+--[[=================================================================
+========================== SETTINGS OPTIONS =========================
+=================================================================]]--
 
--- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
@@ -346,7 +361,9 @@ vim.o.scrolloff = 8
 
 
 
--- [[ Basic Keymaps]]
+--[[=================================================================
+=========================== BASIC KEYMAPS ===========================
+=================================================================]]--
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -367,6 +384,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+
+
+
+
+
+--[[=================================================================
+=========================== PLUGIN CONFIG ===========================
+=================================================================]]--
 
 -- [[ Configure Harpoon ]]
 local mark = require('harpoon.mark')
