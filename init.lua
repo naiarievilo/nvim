@@ -22,7 +22,7 @@ Kickstart.nvim is a template for your own configuration.
   - https://neovim.io/doc/user/lua-guide.html
 
 
-Kickstart Guide:
+
 
 I have left several `:help X` comments throughout the init.lua
 You should run that command and read that help section for more information.
@@ -47,7 +47,7 @@ vim.g.maplocalleader = ' '
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
     'clone',
@@ -86,7 +86,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -103,6 +103,7 @@ require('lazy').setup({
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
@@ -110,7 +111,11 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  {
+    'folke/which-key.nvim',
+    opts = {}
+  },
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -124,7 +129,8 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -132,10 +138,14 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
+    -- Theme installation
     'navarasu/onedark.nvim',
+    lazy = false,
     priority = 1000,
     config = function()
+      require('onedark').setup({
+       style = 'cool',
+      })
       vim.cmd.colorscheme 'onedark'
     end,
   },
@@ -150,6 +160,15 @@ require('lazy').setup({
         theme = 'onedark',
         component_separators = '|',
         section_separators = '',
+      },
+      sections = {
+        lualine_c = {
+          {
+            'filename',
+            file_status = true,
+            path = 1,
+          }
+        },
       },
     },
   },
@@ -198,6 +217,7 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -211,20 +231,75 @@ require('lazy').setup({
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
+
+
+  -- Automated terminal in nvim
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    config = function()
+      require('toggleterm').setup({
+        size = 20,
+        open_mapping = [[<c-\>]],
+        autoscroll = true,
+        hide_numbers = true,
+      })
+    end
+  },
+
+  -- Navigate between frequently edited files with ease
+  'ThePrimeagen/harpoon',
+
+  -- Highlight ranges when outside of visual mode
+  {
+    'winston0410/range-highlight.nvim',
+    dependencies = {
+      'winston0410/cmd-parser.nvim'
+    },
+    opts = {}
+  },
+
+  -- Autoclose special characters
+  {
+    'm4xshen/autoclose.nvim',
+    opts = {}
+  },
+
+
 }, {})
+
+
+
+
+
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
--- Set highlight on search
+-- Set tab and shiftwidth configs
+vim.opt.tabstop = 2
+vim.opt.smartindent = true
+vim.opt.shiftwidth = 2
+
+-- Set highlight on search and incremental search
 vim.o.hlsearch = false
+vim.o.incsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
+vim.wo.relativenumber = true
 
--- Enable mouse mode
+-- Enable mouse mode and set cursor width
 vim.o.mouse = 'a'
+vim.opt.guicursor = {
+  'n-v-c:block',
+  'i-ci-ve:ver25',
+  'r-cr:hor20',
+  'o:hor50',
+  'a:blinkwait1000-blinkoff500-blinkon500-Cursor/lCursor',
+  'sm:block-blinkwait100-blinkfoff150-blinkon150',
+}
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -254,11 +329,19 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
--- [[ Basic Keymaps ]]
+-- Set top and bottom minimum lines while scrolling
+vim.o.scrolloff = 8
+
+
+
+
+
+-- [[ Basic Keymaps]]
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>on', vim.cmd.Ex, { desc = '[N]etrw Directory' })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -274,6 +357,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- [[ Configure Harpoon ]]
+local mark = require('harpoon.mark')
+local ui = require('harpoon.ui')
+vim.keymap.set('n', '<leader>ha', mark.add_file, { desc = '[A]dd current file to Harpoon' })
+vim.keymap.set('n', '<leader>hr', mark.rm_file, { desc = '[R]emove current file from Harpoon' })
+vim.keymap.set('n', '<C-M>', ui.toggle_quick_menu)
+
+vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end, { desc = 'Go to file [1]' })
+vim.keymap.set('n', '<C-j>', function() ui.nav_file(2) end, { desc = 'Go to file [2]' })
+vim.keymap.set('n', '<C-n>', function() ui.nav_file(3) end, { desc = 'Go to file [3]' })
+vim.keymap.set('n', '<C-p>', function() ui.nav_file(4) end, { desc = 'Go to file [4]' })
+
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -313,10 +409,10 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'javascript', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  auto_install = true,
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -494,10 +590,6 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -520,6 +612,7 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
   },
 }
 
