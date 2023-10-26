@@ -167,7 +167,7 @@ require('lazy').setup({
     priority = 1000,
     config = function()
       require('onedark').setup({
-       style = 'cool',
+       style = 'deep',
       })
       vim.cmd.colorscheme 'onedark'
     end,
@@ -367,6 +367,8 @@ vim.o.scrolloff = 8
 -- Set max text width per line and rule
 vim.o.colorcolumn = "81"
 
+-- Highlight current line number
+vim.o.cursorline = true
 
 --[[=================================================================
 =========================== BASIC KEYMAPS ===========================
