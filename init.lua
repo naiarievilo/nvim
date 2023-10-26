@@ -280,12 +280,21 @@ require('lazy').setup({
     opts = {}
   },
 
-  -- Autoclose special characters
   {
-    'm4xshen/autoclose.nvim',
-    opts = {}
-  },
-
+    "windwp/nvim-autopairs",
+    -- Optional dependency
+    dependencies = { 'hrsh7th/nvim-cmp' },
+    config = function()
+      require("nvim-autopairs").setup {}
+      -- If you want to automatically add `(` after selecting a function or method
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+      local cmp = require('cmp')
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
+    end
+  }
 
 }, {})
 
@@ -355,8 +364,8 @@ vim.o.termguicolors = true
 -- Set top and bottom minimum lines while scrolling
 vim.o.scrolloff = 8
 
-
-
+-- Set max text width per line and rule
+vim.o.colorcolumn = "81"
 
 
 --[[=================================================================
