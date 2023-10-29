@@ -41,6 +41,7 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -54,7 +55,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -97,7 +98,12 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+        vim.keymap.set(
+          'n',
+          '<leader>hp',
+          require('gitsigns').preview_hunk,
+          { buffer = bufnr, desc = 'Preview git hunk' }
+        )
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -137,14 +143,13 @@ require('lazy').setup({
       options = {
         icons_enabled = false,
         theme = 'onedark',
-        component_separators = '|',
+        component_separators = '',
         section_separators = '',
       },
       sections = {
         lualine_c = {
           {
             'filename',
-            file_status = true,
             path = 1,
           }
         },
@@ -263,8 +268,6 @@ require('lazy').setup({
     opts = {}
   },
 
-  'sheerun/vim-polyglot',
-
 }, {})
 
 
@@ -280,7 +283,7 @@ require('lazy').setup({
 
 -- Set tab and shiftwidth configs
 vim.opt.tabstop = 2
-vim.opt.autoindent = true
+vim.opt.smartindent = true
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
@@ -288,9 +291,10 @@ vim.opt.expandtab = true
 vim.o.hlsearch = false
 vim.o.incsearch = true
 
--- Make line numbers default
+-- Make relative line numbers default and highlight current line number
 vim.wo.number = true
 vim.wo.relativenumber = true
+vim.o.cursorline = true
 
 -- Enable mouse mode and set cursor width
 vim.o.mouse = 'a'
@@ -337,8 +341,7 @@ vim.o.scrolloff = 8
 -- Set max text width per line and rule
 vim.o.colorcolumn = "81"
 
--- Highlight current line number
-vim.o.cursorline = true
+
 
 --[[=================================================================
 =========================== BASIC KEYMAPS ===========================
