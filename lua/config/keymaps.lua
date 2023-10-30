@@ -8,17 +8,21 @@ vim.g.maplocalleader = ' '
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>on', vim.cmd.Ex, { desc = '[N]etrw Directory' })
+vim.keymap.set(
+  { 'n', 'v' }, '<leader>on', vim.cmd.Ex, { desc = '[N]etrw Directory' }
+)
 
 
 -- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set( 'n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set( 'n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+local highlight_group = vim.api.nvim_create_augroup(
+  'YankHighlight', { clear = true }
+)
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
@@ -35,15 +39,10 @@ local ui = require('harpoon.ui')
 vim.keymap.set( 'n', '<leader>ha', mark.add_file, { desc = '[A]dd current file to Harpoon' })
 vim.keymap.set( 'n', '<leader>hr', mark.rm_file, { desc = '[R]emove current file from Harpoon' })
 vim.keymap.set('n', '<M-m>', ui.toggle_quick_menu)
-vim.keymap.set('n', '<M-1>', function() ui.nav_file(1) end)
-vim.keymap.set('n', '<M-2>', function() ui.nav_file(2) end)
-vim.keymap.set('n', '<M-3>', function() ui.nav_file(3) end)
-vim.keymap.set('n', '<M-4>', function() ui.nav_file(4) end)
-vim.keymap.set('n', '<M-5>', function() ui.nav_file(5) end)
-vim.keymap.set('n', '<M-6>', function() ui.nav_file(6) end)
-vim.keymap.set('n', '<M-7>', function() ui.nav_file(7) end)
-vim.keymap.set('n', '<M-8>', function() ui.nav_file(8) end)
-vim.keymap.set('n', '<M-9>', function() ui.nav_file(9) end)
+vim.keymap.set('n', '<M-a>', function() ui.nav_file(1) end)
+vim.keymap.set('n', '<M-s>', function() ui.nav_file(2) end)
+vim.keymap.set('n', '<M-d>', function() ui.nav_file(3) end)
+vim.keymap.set('n', '<M-f>', function() ui.nav_file(4) end)
 
 
 -- [[ Configure Telescope ]]
@@ -84,32 +83,29 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = {
-    'c', 'cpp', 'css', 'html', 'javascript', 'json', 'lua', 'luadoc', 'python',
-    'rust', 'tsx', 'typescript', 'vimdoc', 'vim'
+    'c', 'cpp', 'css', 'html', 'java', 'javascript', 'json', 'lua', 'luadoc',
+    'python', 'ruby', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim'
   },
 
   sync_install = false,
-
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
-  highlight = { enable = true },
+  highlight = { enable = true, additional_vim_regex_highlighting = true },
   indent = { enable = false },
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
-      scope_incremental = '<c-s>',
+      init_selection = '<C-space>',
+      node_incremental = '<C-space>',
+      scope_incremental = '<C-s>',
       node_decremental = '<M-space>',
     },
   },
   textobjects = {
     select = {
       enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true, -- Automatically jump forward to textobj
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
         ['aa'] = '@parameter.outer',

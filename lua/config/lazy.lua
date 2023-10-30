@@ -14,8 +14,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  -- Indentation-related plugins
-  'tpope/vim-sleuth',
+
+  -- Indentation
+  'sheerun/vim-polyglot',
 
   -- Git-related plugins
   'tpope/vim-fugitive',

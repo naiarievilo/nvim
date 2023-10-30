@@ -2,10 +2,10 @@
 
 -- INDENTATION
 vim.opt.tabstop = 2
-vim.opt.smartindent = true
 vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
 vim.opt.expandtab = true
-vim.o.breakindent = false
+vim.o.breakindent = true
 
 
 -- SEARCH
