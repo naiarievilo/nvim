@@ -1,17 +1,20 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+--  NOTE: Must happen before plugins are required
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>on', vim.cmd.Ex, { desc = '[N]etrw Directory' })
 
+
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -24,17 +27,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+
 -- [[ Configure Harpoon ]]
+-- see `:help harpoon`
 local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
-vim.keymap.set('n', '<leader>ha', mark.add_file, { desc = '[A]dd current file to Harpoon' })
-vim.keymap.set('n', '<leader>hr', mark.rm_file, { desc = '[R]emove current file from Harpoon' })
-vim.keymap.set('n', '<C-M>', ui.toggle_quick_menu)
-
-vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end, { desc = 'Go to file [1]' })
-vim.keymap.set('n', '<C-j>', function() ui.nav_file(2) end, { desc = 'Go to file [2]' })
-vim.keymap.set('n', '<C-n>', function() ui.nav_file(3) end, { desc = 'Go to file [3]' })
-vim.keymap.set('n', '<C-p>', function() ui.nav_file(4) end, { desc = 'Go to file [4]' })
+vim.keymap.set( 'n', '<leader>ha', mark.add_file, { desc = '[A]dd current file to Harpoon' })
+vim.keymap.set( 'n', '<leader>hr', mark.rm_file, { desc = '[R]emove current file from Harpoon' })
+vim.keymap.set('n', '<C-h>', ui.toggle_quick_menu)
+vim.keymap.set('n', '<C-d>', function() ui.nav_file(1) end)
+vim.keymap.set('n', '<C-e>', function() ui.nav_file(1) end)
+vim.keymap.set('n', '<C-y>', function() ui.nav_file(1) end)
+vim.keymap.set('n', '<C-u>', function() ui.nav_file(1) end)
 
 
 -- [[ Configure Telescope ]]
@@ -49,7 +53,6 @@ require('telescope').setup {
     },
   },
 }
-
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -71,6 +74,7 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]resume' })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -143,11 +147,13 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -218,6 +224,7 @@ local servers = {
   },
 }
 
+
 -- Setup neovim lua configuration
 require('neodev').setup()
 
@@ -242,6 +249,7 @@ mason_lspconfig.setup_handlers {
     }
   end
 }
+
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -290,6 +298,7 @@ cmp.setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
 
 -- Configure debugger (DAP)
 local dap = require 'dap'

@@ -1,22 +1,29 @@
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
+-- See `:help vim.o` and `:help vim.opt` and related scoped options
 
--- Set tab and shiftwidth configs
+-- INDENTATION
 vim.opt.tabstop = 2
 vim.opt.smartindent = true
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+vim.o.breakindent = false
 
--- Set highlight on search and incremental search
+
+-- SEARCH
+-- Search hilighting
 vim.o.hlsearch = false
 vim.o.incsearch = true
+-- Case-insensitive searching UNLESS \C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
--- Make relative line numbers default and highlight current line number
+
+-- LINE NUMBERS
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.cursorline = true
 
--- Enable mouse mode and set cursor width
+
+-- CURSORS
 vim.o.mouse = 'a'
 vim.opt.guicursor = {
   'n-v-c:block',
@@ -27,36 +34,48 @@ vim.opt.guicursor = {
   'sm:block-blinkwait100-blinkfoff150-blinkon150',
 }
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
+
+-- CLIPBOARD
+-- Sync clipboard between OS and nvim
+--  Remove it to keep the OS' clipboard independent from nvim
 --  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 
--- Enable break indent
-vim.o.breakindent = true
 
+-- FILE HISTORY
 -- Save undo history
 vim.o.undofile = true
 
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
 
+-- SIGNCOLUMN
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
+-- UPDATE
 -- Decrease update time
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
+
+-- COMPLETION
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+
+-- TERMINAL COLORS
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
--- Set top and bottom minimum lines while scrolling
-vim.o.scrolloff = 8
 
--- Set max text width per line and rule
+-- SCROLLING
+-- Set top and bottom minimum lines while scrolling
+vim.o.scrolloff = 10
+
+
+-- RULERS
 vim.o.colorcolumn = "81"
+
+
+-- COMMAND PROMPT
+vim.o.cmdheight = 0
+

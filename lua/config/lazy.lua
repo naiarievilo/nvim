@@ -1,5 +1,4 @@
 -- Install package manager
---    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
@@ -14,19 +13,14 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
---  You can configure plugins using the `config` key.
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
+  -- Indentation-related plugins
   'tpope/vim-sleuth',
 
-  -- Git related plugins
+  -- Git-related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -36,7 +30,6 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -61,17 +54,17 @@ require('lazy').setup({
     },
   },
 
-  -- Useful plugin to show you pending keybinds.
+  -- Useful plugin to show you pending keybinds
   {
     'folke/which-key.nvim',
     opts = {}
   },
 
   {
-    -- Adds git related signs to the gutter, as well as utilities for managing changes
+    -- Adds git related signs to the gutters and utilities for managing changes
+    -- See `:help gitsigns.txt`
     'lewis6991/gitsigns.nvim',
     opts = {
-      -- See `:help gitsigns.txt`
       signs = {
         add = { text = '+' },
         change = { text = '~' },
@@ -104,7 +97,7 @@ require('lazy').setup({
   },
 
   {
-    -- Theme installation
+    -- Colorscheme
     'catppuccin/nvim',
     config = function()
       require('catppuccin').setup({
@@ -141,9 +134,8 @@ require('lazy').setup({
 
   {
     -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
+    'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
     opts = {
       indent = {
@@ -185,40 +177,10 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-
-  -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-  --       These are some example plugins that I've included in the kickstart repository.
-  --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
-
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-  --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-  --    up-to-date with whatever is in the kickstart repo.
-  --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
-
-
-  -- Automated terminal in nvim
-  {
-    'akinsho/toggleterm.nvim',
-    version = '*',
-    config = function()
-      require('toggleterm').setup({
-        size = 20,
-        open_mapping = [[<c-\>]],
-        autoscroll = true,
-        hide_numbers = true,
-      })
-    end
-  },
-
-  -- Navigate between frequently edited files with ease
+  -- File navigation
   'ThePrimeagen/harpoon',
 
-  -- Highlight ranges when outside of visual mode
+  -- Highlight ranges when outside visual mode
   {
     'winston0410/range-highlight.nvim',
     dependencies = {
@@ -227,6 +189,7 @@ require('lazy').setup({
     opts = {}
   },
 
+  -- Special characters autopairing
   {
     'windwp/nvim-autopairs',
     -- Optional dependency
@@ -243,7 +206,7 @@ require('lazy').setup({
     end
   },
 
-  -- Move highlighted text more freely
+  -- Move highlighted text
   {
     'echasnovski/mini.move',
     verion = '*',
@@ -251,18 +214,13 @@ require('lazy').setup({
   },
 
   {
-    -- Shows how to use the DAP plugin to debug your code.
-    -- Primarily focused on configuring the debugger for Go, but can
-    -- be extended to other languages as well. That's why it's called
-    -- kickstart.nvim and not kitchen-sink.nvim ;)
-    -- NOTE: Yes, you can install new plugins here!
+    -- Debug Adapter Protocol (DAP) for debugging
     'mfussenegger/nvim-dap',
-    -- NOTE: And you can specify dependencies as well
     dependencies = {
-      -- Creates a beautiful debugger UI
+      -- Debugger UI
       'rcarriga/nvim-dap-ui',
 
-      -- Installs the debug adapters for you
+      -- Install debug adapters
       'williamboman/mason.nvim',
       'jay-babu/mason-nvim-dap.nvim',
 
@@ -290,6 +248,7 @@ require('lazy').setup({
       -- Install languages specific configs here
 
     end
-  }
+  },
+
 }, {})
 
