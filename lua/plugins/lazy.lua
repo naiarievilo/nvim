@@ -11,6 +11,14 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Set custom lazy options
+local opts = {
+  ui = {
+    border = 'rounded',
+    title = 'Lazy Plugin Manager'
+  }
+}
+
 require('lazy').setup({
 
   -- Git-related plugins
@@ -175,5 +183,5 @@ require('lazy').setup({
     }
   },
 
-}, {})
+}, opts)
 
