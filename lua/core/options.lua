@@ -1,11 +1,11 @@
 -- See `:help vim.o` and `:help vim.opt` and related scoped options
 
 -- INDENTATION
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.smartindent = true
+vim.opt.autoindent = true
 vim.opt.expandtab = true
 vim.o.breakindent = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 
 
 -- SEARCH

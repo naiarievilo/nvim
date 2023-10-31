@@ -1,5 +1,3 @@
--- Install package manager
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
@@ -7,7 +5,7 @@ if not vim.uv.fs_stat(lazypath) then
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
+    '--branch=stable',
     lazypath,
   }
 end
@@ -15,15 +13,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
 
-  -- Indentation
-  'sheerun/vim-polyglot',
-
   -- Git-related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
+  -- LSP Configuration & Plugins
   {
-    -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
@@ -38,8 +33,8 @@ require('lazy').setup({
     },
   },
 
+  -- Autocompletion
   {
-    -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
@@ -55,94 +50,29 @@ require('lazy').setup({
     },
   },
 
-  -- Useful plugin to show you pending keybinds
+  -- Show pending keybinds when using <leader>
   {
     'folke/which-key.nvim',
-    opts = {}
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
   },
 
+  -- Adds git related signs to the gutters and utilities for managing changes
+  'lewis6991/gitsigns.nvim',
+
+  -- Colorscheme
+  'catppuccin/nvim',
+
+  -- Statusline
+  'nvim-lualine/lualine.nvim',
+
+  -- Add indentation guides even on blank lines
   {
-    -- Adds git related signs to the gutters and utilities for managing changes
-    -- See `:help gitsigns.txt`
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        vim.keymap.set(
-          'n',
-          '<leader>hp',
-          require('gitsigns').preview_hunk,
-          { buffer = bufnr, desc = 'Preview git hunk' }
-        )
-
-        -- don't override the built-in and fugitive keymaps
-        local gs = package.loaded.gitsigns
-        vim.keymap.set({'n', 'v'}, ']c', function()
-          if vim.wo.diff then return ']c' end
-          vim.schedule(function() gs.next_hunk() end)
-          return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to next hunk"})
-        vim.keymap.set({'n', 'v'}, '[c', function()
-          if vim.wo.diff then return '[c' end
-          vim.schedule(function() gs.prev_hunk() end)
-          return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to previous hunk"})
-      end,
-    },
-  },
-
-  {
-    -- Colorscheme
-    'catppuccin/nvim',
-    config = function()
-      require('catppuccin').setup({
-          flavour = 'macchiato',
-          no_italic = true,
-          term_colors = true
-      })
-
-      vim.cmd.colorscheme 'catppuccin'
-    end
-  },
-
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = 'catppuccin',
-        component_separators = '',
-        section_separators = '',
-      },
-      sections = {
-        lualine_c = {
-          {
-            'filename',
-            path = 1,
-          }
-        },
-      },
-    },
-  },
-
-  {
-    -- Add indentation guides even on blank lines
-    -- See `:help indent_blankline.txt`
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',
-    opts = {
-      indent = {
-        char = '▏'
-      }
-    }
   },
 
   -- "gc" to comment visual regions/lines
@@ -169,8 +99,8 @@ require('lazy').setup({
     },
   },
 
+  -- Highlight, edit, and navigate code
   {
-    -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
@@ -228,27 +158,22 @@ require('lazy').setup({
       -- Add your own debuggers here
 
     },
-    config = function()
-      require('mason-nvim-dap').setup {
-        -- Makes a best effort to setup the various debuggers with
-        -- reasonable debug configurations
-        automatic_setup = true,
+  },
 
-        -- You can provide additional configuration to the handlers,
-        -- see mason-nvim-dap README for more information
-        handlers = {},
+  -- Terminal
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*'
+  },
 
-        -- You'll need to check that you have the required things installed
-        -- online, please don't ask me how to install them :)
-        ensure_installed = {
-          -- Update this to ensure that you have the debuggers for the langs you want
-          'delve',
-        },
-      }
-
-      -- Install languages specific configs here
-
-    end
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    }
   },
 
 }, {})
