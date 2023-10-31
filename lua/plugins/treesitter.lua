@@ -2,8 +2,9 @@ require('nvim-treesitter.configs').setup {
   modules = {},
 
   ensure_installed = {
-    'c', 'cpp', 'css', 'html', 'java', 'javascript', 'json', 'lua', 'luadoc',
-    'python', 'ruby', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim'
+    'css', 'diff', 'dockerfile', 'html', 'http', 'java', 'javascript', 'jsdoc',
+    'json', 'lua', 'luadoc', 'python', 'ruby', 'rust', 'tsx', 'typescript',
+    'vimdoc', 'vim', 'xml', 'yaml'
   },
   sync_install = false,
   auto_install = false,

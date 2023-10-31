@@ -16,6 +16,7 @@ require('lazy').setup({
   -- Git-related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
   -- LSP Configuration & Plugins
   {
@@ -50,18 +51,15 @@ require('lazy').setup({
     },
   },
 
-  -- Show pending keybinds when using <leader>
+  -- Keybind helper
   {
     'folke/which-key.nvim',
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 300
+      vim.o.timeoutlen = 200
     end,
   },
-
-  -- Adds git related signs to the gutters and utilities for managing changes
-  'lewis6991/gitsigns.nvim',
 
   -- Colorscheme
   'catppuccin/nvim',
@@ -108,10 +106,10 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  -- File navigation
+  -- Quick file navigation
   'ThePrimeagen/harpoon',
 
-  -- Highlight ranges when outside visual mode
+  -- Highlight motion ranges
   {
     'winston0410/range-highlight.nvim',
     dependencies = {
@@ -120,7 +118,7 @@ require('lazy').setup({
     opts = {}
   },
 
-  -- Special characters autopairing
+  -- Autopairing
   {
     'windwp/nvim-autopairs',
     -- Optional dependency
@@ -137,15 +135,15 @@ require('lazy').setup({
     end
   },
 
-  -- Move highlighted text
+  -- Line motion
   {
     'echasnovski/mini.move',
     verion = '*',
     opts = {}
   },
 
+  -- Debugging
   {
-    -- Debug Adapter Protocol (DAP) for debugging
     'mfussenegger/nvim-dap',
     dependencies = {
       -- Debugger UI
@@ -156,7 +154,7 @@ require('lazy').setup({
       'jay-babu/mason-nvim-dap.nvim',
 
       -- Add your own debuggers here
-
+      -- e.g., 'leoluz/nvim-dap-go',
     },
   },
 
@@ -166,6 +164,7 @@ require('lazy').setup({
     version = '*'
   },
 
+  -- File explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",

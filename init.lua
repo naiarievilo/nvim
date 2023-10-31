@@ -8,7 +8,7 @@ require('plugins.lazy')
 
 -- Load plugins config
 require('plugins.colorscheme')
-require('plugins.dap')
+require('plugins.debug')
 require('plugins.gitsigns')
 require('plugins.harpoon')
 require('plugins.indent-blankline')

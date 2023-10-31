@@ -15,6 +15,12 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 -- Keep yanked text on unnamed register
 vim.keymap.set('x', '<leader>p', '\"_dP')
 
+-- Delete last word when in insert mode
+vim.keymap.set('i', '<M-BS>', '<C-[>dbi')
+
+-- Make CTRL-C have same effect as Esc and CTRL-[
+vim.keymap.set('i', '<C-c>', '<Esc>')
+
 -- Deal with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
