@@ -7,7 +7,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
@@ -110,7 +110,7 @@ return {
     --
     -- Switch for controlling whether you want autoformatting.
     --  Use :KickstartFormatToggle to toggle autoformatting ON or OFF
-    local format_is_enabled = false
+    local format_is_enabled = true
     vim.api.nvim_create_user_command('AutoformatToggle', function()
       format_is_enabled = not format_is_enabled
       print('Setting autoformatting to: ' .. tostring(format_is_enabled))
@@ -131,7 +131,6 @@ return {
     end
 
     -- Whenever an LSP attaches to a buffer, we will run this function.
-    --
     -- See `:help LspAttach` for more information about this autocmd event.
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('lsp-attach-format', { clear = true }),

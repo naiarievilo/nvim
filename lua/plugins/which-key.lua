@@ -21,10 +21,10 @@ return {
 
     local which_key = require('which-key')
     which_key.register({
-      s = { name = 'Search'},
-      h = { name = 'Harpoon'},
-      L = { name = 'LSP'},
-      l = { name = 'Leap'}
+      s = { name = 'Search...' },
+      h = { name = 'Harpoon...' },
+      L = { name = 'LSP...' },
+      l = { name = 'Leap...' }
     }, { prefix = '<leader>' })
   end
 }
