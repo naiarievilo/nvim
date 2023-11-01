@@ -11,7 +11,7 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('x', '<leader>p', '\"_dP')
 
 -- Delete last word when in insert mode
-vim.keymap.set('i', '<M-BS>', '<C-[>ldbi')
+vim.keymap.set('i', '<M-BS>', '<Esc>diwi')
 
 -- Make CTRL-C have same effect as Esc and CTRL-[
 vim.keymap.set('i', '<C-c>', '<Esc>')
@@ -29,3 +29,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- Delete current buffer quickly
 vim.keymap.set('n', '<leader>-', function() vim.cmd 'bd!' end, { desc = 'Delete current buffer' })
+
+-- Quick type rename
+vim.keymap.set({ 'n', 'v' }, '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = 'Rename current word' })
