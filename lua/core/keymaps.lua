@@ -1,8 +1,3 @@
--- Set <space> as leader key
---   Must be set before plugins are required
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -16,7 +11,7 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('x', '<leader>p', '\"_dP')
 
 -- Delete last word when in insert mode
-vim.keymap.set('i', '<M-BS>', '<C-[>dbi')
+vim.keymap.set('i', '<M-BS>', '<C-[>ldbi')
 
 -- Make CTRL-C have same effect as Esc and CTRL-[
 vim.keymap.set('i', '<C-c>', '<Esc>')
@@ -25,15 +20,6 @@ vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Highlight on yank
-local highlight_group = vim.api.nvim_create_augroup( 'YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
 
 -- Diagnostic messages
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -41,3 +27,5 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+-- Delete current buffer quickly
+vim.keymap.set('n', '<leader>-', function() vim.cmd 'bd!' end, { desc = 'Delete current buffer' })

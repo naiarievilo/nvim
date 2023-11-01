@@ -1,23 +1,29 @@
--- CORE CONFIG
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable',
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('core.autocmds')
 require('core.keymaps')
 require('core.options')
 
--- PLUGINS
--- Load package manager
-require('plugins.lazy')
-
--- Load plugins config
-require('plugins.colorscheme')
-require('plugins.debug')
-require('plugins.gitsigns')
-require('plugins.harpoon')
-require('plugins.indent-blankline')
-require('plugins.lsp')
-require('plugins.lualine')
-require('plugins.mason')
-require('plugins.neo-tree')
-require('plugins.nvim-cmp')
-require('plugins.telescope')
-require('plugins.toggleterm')
-require('plugins.treesitter')
-require('plugins.which-key')
+require('lazy').setup('plugins', {
+  install = {
+    colorscheme = { 'catppuccin' }
+  },
+  ui = {
+    border = 'rounded',
+    title = ' Lazy Plugin Manager '
+  },
+})
