@@ -10,9 +10,9 @@ return {
       modules = {},
 
       ensure_installed = {
-        'css', 'diff', 'dockerfile', 'html', 'http', 'java', 'javascript',
-        'jsdoc', 'json', 'lua', 'luadoc', 'python', 'ruby', 'rust', 'tsx',
-        'typescript', 'vimdoc', 'vim', 'xml', 'yaml'
+        'bash', 'css', 'diff', 'dockerfile', 'html', 'http', 'java', 'javascript',
+        'jsdoc', 'json', 'lua', 'luadoc', 'markdown_inline', 'python', 'regex',
+        'ruby', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim', 'xml', 'yaml'
       },
       sync_install = false,
       auto_install = true,
