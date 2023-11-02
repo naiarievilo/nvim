@@ -10,9 +10,9 @@ return {
       modules = {},
 
       ensure_installed = {
-        'css', 'diff', 'dockerfile', 'html', 'http', 'java', 'javascript', 'jsdoc',
-        'json', 'lua', 'luadoc', 'python', 'ruby', 'rust', 'tsx', 'typescript',
-        'vimdoc', 'vim', 'xml', 'yaml'
+        'css', 'diff', 'dockerfile', 'html', 'http', 'java', 'javascript',
+        'jsdoc', 'json', 'lua', 'luadoc', 'python', 'ruby', 'rust', 'tsx',
+        'typescript', 'vimdoc', 'vim', 'xml', 'yaml'
       },
       sync_install = false,
       auto_install = true,
@@ -20,7 +20,10 @@ return {
 
       highlight = { enable = true },
       indent = { enable = true },
-      autotag = { enable = true },
+      autotag = {
+        enable = true,
+        enable_close_on_slash = false,
+      },
       incremental_selection = {
         enable = true,
         keymaps = {

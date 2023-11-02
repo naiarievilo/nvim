@@ -1,11 +1,5 @@
 -- See `:help vim.o` and `:help vim.opt` and related scoped options
 
--- CLIPBOARD
--- Sync clipboard between OS and nvim
---  Remove it to keep the OS' clipboard independent from nvim
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
 -- COMMAND PROMPT
 vim.o.cmdheight = 0
 
@@ -48,14 +42,11 @@ vim.o.termguicolors = true
 vim.o.colorcolumn = "81"
 
 -- SCROLLING
--- Set top and bottom minimum lines while scrolling
 vim.o.scrolloff = 10
 
 -- SEARCH
--- Search highlighting
 vim.o.hlsearch = false
 vim.o.incsearch = true
--- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
@@ -69,5 +60,5 @@ vim.o.showtabline = 0
 -- UPDATE
 -- Decrease update time
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
+vim.o.timeoutlen = 100
+vim.o.ttimeoutlen = 10

@@ -7,7 +7,11 @@ return {
     'williamboman/mason-lspconfig.nvim',
 
     -- Useful status updates for LSP
-    { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+    {
+      'j-hui/fidget.nvim',
+      tag = 'legacy',
+      opts = {}
+    },
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
@@ -46,6 +50,11 @@ return {
       nmap('<leader>LL', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end, 'Workspace: [L]ist folders')
+
+      local wk = require('which-key')
+      wk.register({
+        L = { name = 'LSP...' },
+      }, { prefix = '<leader>', buffer = bufnr })
 
       -- create a command `:format` local to the lsp buffer
       vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)

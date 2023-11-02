@@ -13,24 +13,29 @@ return {
       on_attach = function(bufnr)
         vim.keymap.set(
           'n',
-          '<leader>g',
+          '<leader>gp',
           require('gitsigns').preview_hunk,
           { buffer = bufnr, desc = 'Preview Git hunks' }
         )
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
-        vim.keymap.set({'n', 'v'}, ']c', function()
+        vim.keymap.set({ 'n', 'v' }, '<leader>gn', function()
           if vim.wo.diff then return ']c' end
           vim.schedule(function() gs.next_hunk() end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to next hunk"})
+        end, { expr = true, buffer = bufnr, desc = "Jump to next hunk" })
 
-        vim.keymap.set({'n', 'v'}, '[c', function()
+        vim.keymap.set({ 'n', 'v' }, '<leader>gN', function()
           if vim.wo.diff then return '[c' end
           vim.schedule(function() gs.prev_hunk() end)
           return '<Ignore>'
-        end, {expr=true, buffer = bufnr, desc = "Jump to previous hunk"})
+        end, { expr = true, buffer = bufnr, desc = "Jump to previous hunk" })
+
+        local wk = require('which-key')
+        wk.register({
+          g = { name = 'Git...' }
+        }, { prefix = '<leader>', buffer = bufnr })
       end
     })
   end

@@ -19,12 +19,14 @@ return {
       }
     })
 
-    local which_key = require('which-key')
-    which_key.register({
-      s = { name = 'Search...' },
+    -- Buffer-agnostic groups
+    local wk = require('which-key')
+    wk.register({
+      D = { name = 'Diagnostics...' },
       h = { name = 'Harpoon...' },
-      L = { name = 'LSP...' },
-      l = { name = 'Leap...' }
+      l = { name = 'Leap...' },
+      s = { name = 'Search...' },
+      t = { name = 'Trouble...' }
     }, { prefix = '<leader>' })
   end
 }
