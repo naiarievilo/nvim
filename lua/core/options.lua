@@ -29,6 +29,9 @@ vim.opt.shiftwidth = 2
 vim.o.breakindent = true
 vim.opt.expandtab = true
 
+-- LINE BREAK
+vim.o.linebreak = true
+
 -- LINE NUMBERS
 vim.wo.number = true
 vim.wo.relativenumber = true

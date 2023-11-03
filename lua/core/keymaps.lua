@@ -20,6 +20,6 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Delete current buffer quickly
 vim.keymap.set('n', '<leader>-', function() vim.cmd 'bd!' end, { desc = 'Delete current buffer' })
 
--- Quick type rename
+-- Quick word rename
 vim.keymap.set({ 'n', 'v' }, '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   { desc = 'Rename current word' })

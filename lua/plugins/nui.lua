@@ -1,3 +1,3 @@
 return {
-  'MunifTanjin/nui.nvim'
+  'MunifTanjim/nui.nvim'
 }

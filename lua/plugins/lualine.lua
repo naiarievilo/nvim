@@ -6,11 +6,35 @@ return {
       options = {
         icons_enabled = true,
         theme = 'catppuccin',
-        component_separators = '',
+        component_separators = '|',
         section_separators = '',
       },
       sections = {
-        lualine_c = { { 'filename', path = 1, },
+        lualine_a = { 'mode' },
+        lualine_b = {
+          'branch',
+          {
+            'diff',
+            symbols = {
+              added = '',
+              modified = '󰜥',
+              removed = '󰍴'
+            }
+          },
+          {
+            'diagnostics',
+            sources = { 'nvim_diagnostic' },
+            sections = { 'error', 'warn', 'info', 'hint' },
+            symbols = {
+              error = ' ',
+              warn = ' ',
+              info = ' ',
+              hint = ' '
+            }
+          }
+        },
+        lualine_c = {
+          { 'filename', path = 1, },
         },
       },
       extensions = {
