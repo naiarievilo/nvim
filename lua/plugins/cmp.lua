@@ -21,23 +21,23 @@ return {
 
     cmp.setup({
       enabled = true,
-      completion = {
-        keyword_length = 2,
-      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
         end,
       },
+      view = {
+        auto_open = true
+      },
       window = {
-        completion = cmp.config.window.bordered({
+        completion = {
           border = 'rounded',
           winhighlight = 'Normal:None,FloatBorder:FloatBorder'
-        }),
-        documentation = cmp.config.window.bordered({
+        },
+        documentation = {
           border = 'rounded',
           winhighlight = 'Normal:None,FloatBorder:FloatBorder'
-        }),
+        }
       },
       mapping = cmp.mapping.preset.insert {
         ['<C-n>'] = cmp.mapping.select_next_item(),

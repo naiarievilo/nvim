@@ -24,6 +24,8 @@ require('lazy').setup('plugins', {
   },
   ui = {
     border = 'rounded',
-    title = ' Lazy Plugin Manager '
+    title = ' 󰒲 Lazy 󰒲 '
   },
 })
+
+require('core.colorscheme')

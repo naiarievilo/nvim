@@ -17,6 +17,7 @@ vim.opt.guicursor = {
   'a:blinkwait1000-blinkoff500-blinkon500-Cursor/lCursor',
   'sm:block-blinkwait100-blinkfoff150-blinkon150',
 }
+vim.o.mousemev = true
 
 -- FILE HISTORY
 -- Save undo history
