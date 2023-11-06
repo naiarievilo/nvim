@@ -12,30 +12,36 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = {
-          'branch',
+          {
+            'branch',
+            separator = ''
+          },
           {
             'diff',
             symbols = {
               added = '',
               modified = '󰜥',
               removed = '󰍴'
-            }
+            },
           },
           {
             'diagnostics',
-            sources = { 'nvim_diagnostic' },
+            sources = { 'nvim_lsp', 'nvim_diagnostic' },
             sections = { 'error', 'warn', 'info', 'hint' },
             symbols = {
               error = ' ',
               warn = ' ',
               info = ' ',
               hint = ' '
-            }
+            },
           }
         },
         lualine_c = {
-          { 'filename', path = 1, },
-        },
+          {
+            'filename',
+            path = 1,
+          },
+        }
       },
       extensions = {
         'fugitive',

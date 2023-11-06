@@ -27,23 +27,26 @@ return {
         end,
       },
       view = {
-        auto_open = true
+        docs = {
+          auto_open = true
+        }
       },
       window = {
         completion = {
           border = 'rounded',
-          winhighlight = 'Normal:None,FloatBorder:FloatBorder'
+          winhighlight = 'Normal:None,FloatBorder:FloatBorder',
+          scrolloff = 4
         },
         documentation = {
           border = 'rounded',
-          winhighlight = 'Normal:None,FloatBorder:FloatBorder'
+          winhighlight = 'Normal:None,FloatBorder:FloatBorder',
         }
       },
       mapping = cmp.mapping.preset.insert {
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-N>'] = cmp.mapping.select_prev_item(),
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-u>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete {},
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -63,6 +66,13 @@ return {
             fallback()
           end
         end, { 'i', 's' }),
+        ['<C-o>'] = cmp.mapping(function()
+          if cmp.visible_docs() then
+            cmp.close_docs()
+          else
+            cmp.open_docs()
+          end
+        end, { 'n' })
       },
       sources = {
         { name = 'nvim_lsp' },
